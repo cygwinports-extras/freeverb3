@@ -1,0 +1,109 @@
+--- origsrc/freeverb3-2.5.21/freeverb/Makefile.am	2011-09-20 05:54:34.000000000 -0500
++++ src/freeverb3-2.5.21/freeverb/Makefile.am	2011-10-22 23:03:32.665365200 -0500
+@@ -89,32 +89,32 @@ libfreeverbinclude_HEADERS = \
+ 	strev_t.hpp \
+ 	utils.hpp \
+ 	utils_t.hpp \
+-	$(top_srcdir)/fv3_config.h
++	$(top_builddir)/fv3_config.h
+ 
+ lib_LTLIBRARIES = libfreeverb3.la
+ 
+ COMPATNUM=@LIBTOOL_VERSION_INFO@
+-libfreeverb3_la_LDFLAGS = -version-info $(COMPATNUM)
++libfreeverb3_la_LDFLAGS = -version-info $(COMPATNUM) -no-undefined
+ 
+ libfreeverb3_la_LIBADD = \
+-	$(top_srcdir)/libsamplerate2/libsamplerate2.la \
++	$(top_builddir)/libsamplerate2/libsamplerate2.la \
+ 	$(fftw3f_LIBS) \
+ 	$(fftw3_LIBS) \
+ 	$(fftw3l_LIBS)
+ 
+ if BUILD_FLOAT
+-libfreeverb3_la_LIBADD += $(top_srcdir)/float/libfv3_float.la
+-libfreeverb3_la_LIBADD += $(top_srcdir)/float/libsr2_float.la
++libfreeverb3_la_LIBADD += $(top_builddir)/float/libfv3_float.la
++libfreeverb3_la_LIBADD += $(top_builddir)/float/libsr2_float.la
+ endif
+ 
+ if BUILD_DOUBLE
+-libfreeverb3_la_LIBADD += $(top_srcdir)/double/libfv3_double.la
+-libfreeverb3_la_LIBADD += $(top_srcdir)/double/libsr2_double.la
++libfreeverb3_la_LIBADD += $(top_builddir)/double/libfv3_double.la
++libfreeverb3_la_LIBADD += $(top_builddir)/double/libsr2_double.la
+ endif
+ 
+ if BUILD_LDOUBLE
+-libfreeverb3_la_LIBADD += $(top_srcdir)/ldouble/libfv3_ldouble.la
+-libfreeverb3_la_LIBADD += $(top_srcdir)/ldouble/libsr2_ldouble.la
++libfreeverb3_la_LIBADD += $(top_builddir)/ldouble/libfv3_ldouble.la
++libfreeverb3_la_LIBADD += $(top_builddir)/ldouble/libsr2_ldouble.la
+ endif
+ 
+ libfreeverb3_la_SOURCES =
+--- origsrc/freeverb3-2.5.21/freeverb/frag_t.hpp	2011-09-17 04:20:40.000000000 -0500
++++ src/freeverb3-2.5.21/freeverb/frag_t.hpp	2011-10-22 23:14:49.783348300 -0500
+@@ -48,7 +48,7 @@ private:
+   void setSIMD(uint32_t simdFlag);
+   _FV3_(MULT_T) MULT_M;
+   void allocImpulse(long size) throw(std::bad_alloc);
+-  void registerPreallocatedBlock(_fv3_float_t * _L, _fv3_float_t * _R, long size);
++  void registerPreallocatedBlock(_fv3_float_t * L, _fv3_float_t * R, long size);
+   void freeImpulse();
+   long fragmentSize;
+   _FV3_(slot) fftImpulse;
+--- origsrc/freeverb3-2.5.21/samples/Makefile.am	2011-09-13 07:04:47.000000000 -0500
++++ src/freeverb3-2.5.21/samples/Makefile.am	2011-10-22 23:10:55.354579600 -0500
+@@ -16,8 +16,8 @@ endif
+ 
+ AM_LDFLAGS = -static
+ 
+-I_LIBS = $(top_srcdir)/libgdither/libgdither.la \
+-	$(top_srcdir)/freeverb/libfreeverb3.la \
++I_LIBS = $(top_builddir)/libgdither/libgdither.la \
++	$(top_builddir)/freeverb/libfreeverb3.la \
+ 	$(sndfile_LIBS) \
+ 	$(jack_LIBS)
+ 
+--- origsrc/freeverb3-2.5.21/xmms/plugins.make	2011-10-07 09:21:48.000000000 -0500
++++ src/freeverb3-2.5.21/xmms/plugins.make	2011-10-22 22:49:35.161015700 -0500
+@@ -12,27 +12,27 @@ INCLUDES = -I$(top_srcdir) -I$(top_srcdi
+ DSP_PLUGINS = libfreeverb3.la librevmodel.la libimpulser2.la libmbcomp.la libstenh.la \
+  libstrev.la libprogenitor.la libgd_largeroom.la libearlyr.la libearlyr2.la libnoise1.la
+ 
+-libfreeverb3_la_LDFLAGS = -module -avoid-version
++libfreeverb3_la_LDFLAGS = -module -avoid-version -no-undefined
+ 
+-librevmodel_la_LDFLAGS = -module -avoid-version
++librevmodel_la_LDFLAGS = -module -avoid-version -no-undefined
+ 
+-libimpulser2_la_LDFLAGS = -module -avoid-version
++libimpulser2_la_LDFLAGS = -module -avoid-version -no-undefined
+ 
+-libmbcomp_la_LDFLAGS = -module -avoid-version
++libmbcomp_la_LDFLAGS = -module -avoid-version -no-undefined
+ 
+-libstenh_la_LDFLAGS = -module -avoid-version
++libstenh_la_LDFLAGS = -module -avoid-version -no-undefined
+ 
+-libstrev_la_LDFLAGS = -module -avoid-version
++libstrev_la_LDFLAGS = -module -avoid-version -no-undefined
+ 
+-libprogenitor_la_LDFLAGS = -module -avoid-version
++libprogenitor_la_LDFLAGS = -module -avoid-version -no-undefined
+ 
+-libgd_largeroom_la_LDFLAGS = -module -avoid-version
++libgd_largeroom_la_LDFLAGS = -module -avoid-version -no-undefined
+ 
+-libearlyr_la_LDFLAGS = -module -avoid-version
++libearlyr_la_LDFLAGS = -module -avoid-version -no-undefined
+ 
+-libearlyr2_la_LDFLAGS = -module -avoid-version
++libearlyr2_la_LDFLAGS = -module -avoid-version -no-undefined
+ 
+-libnoise1_la_LDFLAGS = -module -avoid-version
++libnoise1_la_LDFLAGS = -module -avoid-version -no-undefined
+ 
+ if BUILD_PLUGDOUBLE
+ INCLUDES += -DPLUGDOUBLE

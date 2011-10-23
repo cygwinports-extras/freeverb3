@@ -1,0 +1,6 @@
+
+HOMEPAGE="http://freeverb3.sourceforge.net/"
+SRC_URI="mirror://sourceforge/freeverb3/${P}.tar.gz"
+
+# audacious: incompatible with 3.0
+CYGCONF_ARGS="--disable-audacious --enable-sample"
